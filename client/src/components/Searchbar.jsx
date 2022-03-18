@@ -14,33 +14,33 @@ class Searchbar extends React.Component {
     }
 
     //need to bind 'this' to the handlers so that when it is invoked, it is invoked with the context of this. Otherwise setState will be undefined
-    this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSearchInput = this.handleSearchInput.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  //create a function to handle user input into the search bar
-  //this function will be invoked on changes from user input
-  //change the state of searchTxt based on whatever is being inputted
-  handleInput(event) {
-    event.preventDefault();
-    this.setState({searchTxt: event.target.value})
-    //console.log(this.state.searchTxt);
-  }
+  // //create a function to handle user input into the search bar
+  // //this function will be invoked on changes from user input
+  // //change the state of searchTxt based on whatever is being inputted
+  // handleSearchInput(event) {
+  //   event.preventDefault();
+  //   this.setState({searchTxt: event.target.value})
+  //   //console.log(this.state.searchTxt);
+  // }
 
-  //create a handle submit function that will be invoked whenever the submit button is clicked
-  //after clicking submit, the text in the search bar should clear and the movie list should be re-rendered with the filtered movies
-  handleSubmit(event) {
-    event.preventDefault();
-    this.setState({searchTxt: ''});
-    console.log('You clicked submit');
-    console.log(`Searching for: ${this.state.searchTxt}`)
-  }
+  // //create a handle submit function that will be invoked whenever the submit button is clicked
+  // //after clicking submit, the text in the search bar should clear and the movie list should be re-rendered with the filtered movies
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //   this.setState({searchTxt: ''});
+  //   console.log('You clicked submit');
+  //   console.log(`Searching for: ${this.state.searchTxt}`)
+  // }
 
   render() {
     return (
       //on submission click, invoke handle submit function
-      <form onSubmit={this.handleSubmit}>
-        <input type="text" value={this.state.searchTxt} onChange={this.handleInput}/>
+      <form onSubmit={this.props.handleSubmit}>
+        <input type="text" value={this.props.searchTxt} onChange={this.props.handleSearchInput}/>
         <button type='submit'>Submit</button>
       </form>
     )

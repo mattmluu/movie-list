@@ -3,23 +3,72 @@ import movies from '../data/fakeData.js';
 import MovieList from './MovieList.jsx';
 import Searchbar from './Searchbar.jsx';
 
-
-//since searchBar has state that is used to alter movie list rendering
-//app needs to be stateful and pass its state down to search bar so that app can change the movielist
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       searchTxt: '',
-      movies: movies
+      movies: movies,
     }
+
+    this.handleSearchInput = this.handleSearchInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleSearchInput(event) {
+    event.preventDefault();
+    this.setState({searchTxt: event.target.value})
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(`Searching for: ${this.state.searchTxt}`)
+    this.setState({movies: this.filterBySearch(), searchTxt: ''});
+    console.log('You clicked submit');
+  }
+
+  //create a filter method that filters the state of movies based on the state of searchTxt
+  filterBySearch() {
+    const { searchTxt, movies } = this.state;
+    if (searchTxt.length !== 0) {
+      return movies.filter((movie) => {
+        if (movie.title.toLowerCase().includes(searchTxt.toLowerCase())) {
+          return true;
+        }
+        return false;
+      })
+    }
+    return movies;
+
+    // const { searchTxt, movies } = this.state;
+    // if (searchTxt) {
+    //   return movies.filter((movie) => {
+    //     if (movie.title.toLowerCase().includes(searchTxt.toLowerCase())) {
+    //       return true;
+    //     }
+    //     return false;
+    //   })
+    // }
+    // return movies;
+
+    // var filterResult = [];
+    // if (searchTxt.length !== 0) {
+    //   filterResult = this.state.movies.filter((movie) => {
+    //     if (movie.title.toLowerCase().includes(this.state.searchTxt.toLowerCase())) {
+    //       filterResult.push(movie);
+    //     }
+    //   })
+    // }
+
+    // this.setState({movies: filterResult})
+  }
+
 
   render() {
     return (
       <div>
-        <Searchbar />
-        <MovieList movies={this.state.movies} />
+        <Searchbar searchTxt={this.state.searchTxt} handleSearchInput={this.handleSearchInput} handleSubmit={this.handleSubmit} />
+        <MovieList movies={this.filterBySearch()} />
       </div>
     )
   }
