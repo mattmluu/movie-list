@@ -42,7 +42,7 @@ class Searchbar extends React.Component {
       //on submission click, invoke handle submit function
       <form onSubmit={this.handleSubmit}>
         <input type="text" value={this.state.searchTxt} onChange={this.handleSearchInput}/>
-        <button type='submit'>Submit</button>
+        <button type='submit'>Search</button>
       </form>
     )
   }
@@ -50,59 +50,3 @@ class Searchbar extends React.Component {
 
 export default Searchbar;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class Search extends React.Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       searchText: ''
-//     }
-
-//     this.domListener = this.domListener.bind(this);
-//   }
-
-//   submitForm(){
-//     this.preventDefault()
-
-//   }
-
-
-//   domListener(event) {
-//     const newValue = event.target.value;
-//     this.setState({
-//       searchText: newValue;
-//     })
-//   }
-
-//   render() {
-//     return (
-//       <form>
-//         <input>
-//           onChange={this.domListener}
-//           value={this.state.searchText}
-//           type='text'
-//         </input>
-//       </form>
-//     )
-//   }
-
-// }

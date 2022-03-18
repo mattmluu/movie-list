@@ -9,7 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchTxt: '',
-      movies: [{title: 'Harry Potter'}]
+      movies: []
     }
 
     // this.handleSearchInput = this.handleSearchInput.bind(this);
@@ -26,6 +26,11 @@ class App extends React.Component {
     this.setState({searchTxt});
    }
 
+   //create movie obj
+   //set title to the addMovie argument --> user input
+   //add movie to a copy of existing list
+   //change state of movieList
+   //clear the searchTxt otherwise you can't re-render movies
    liftAddMovieState(addMovie) {
      var newMovie = {'title': addMovie};
      console.log(newMovie);
@@ -33,12 +38,13 @@ class App extends React.Component {
      newMovieList.push(newMovie);
      console.log(newMovieList);
      this.setState({movies: newMovieList});
+     this.setState({searchTxt: ''})
    }
 
   //create a filter method that filters the state of movies based on the state of searchTxt
   filterBySearch() {
-    const { searchTxt, movies } = this.state;
-    if (searchTxt.length !== 0) {
+    var { searchTxt, movies } = this.state;
+    if (!searchTxt.length !== 0) {
       return movies.filter((movie) => {
         if (movie.title.toLowerCase().includes(searchTxt.toLowerCase())) {
           return true;
@@ -62,74 +68,5 @@ class App extends React.Component {
 }
 
 
-
 export default App;
 
-
-
-
-
-
-
-{/* const App = () => (
-  <div>
-    <Searchbar />
-    <MovieList movies={movies}/>
-  </div>
-); */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import movies from '../data/fakeData.js'
-// import MovieList from './MovieList.jsx'
-
-// import React from 'react';
-
-// class App extends from React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       'movies': movies,
-//       'searchBar': ''
-//     }
-//   }
-
-//   handleMovieSearch(movie, searchInput) {
-//     this.setState {
-//       'movies': movie
-//       'searchBar': searchInput
-//     }
-//   }
-
-//   render() {
-//     return (
-//       <MovieList movies={this.state.movies}/>
-//       <Search handleMovieSearch={this.handleMovieSearch}/>
-//     )
-//   }
-// }
-
-
-// export default App;
