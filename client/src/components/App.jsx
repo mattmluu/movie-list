@@ -2,30 +2,38 @@ import React from 'react';
 import movies from '../data/fakeData.js';
 import MovieList from './MovieList.jsx';
 import Searchbar from './Searchbar.jsx';
+import AddMovie from './AddMovie.jsx';
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       searchTxt: '',
-      movies: movies,
+      movies: [{title: 'Harry Potter'}]
     }
 
-    this.handleSearchInput = this.handleSearchInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSearchInput = this.handleSearchInput.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.liftSearchTxtState = this.liftSearchTxtState.bind(this);
+    this.liftAddMovieState = this.liftAddMovieState.bind(this);
   }
 
-  handleSearchInput(event) {
-    event.preventDefault();
-    this.setState({searchTxt: event.target.value})
-  }
+  componentDidMount() {
+    console.log('mounted')
+   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log(`Searching for: ${this.state.searchTxt}`)
-    this.setState({movies: this.filterBySearch(), searchTxt: ''});
-    console.log('You clicked submit');
-  }
+   liftSearchTxtState(searchTxt) {
+    this.setState({searchTxt});
+   }
+
+   liftAddMovieState(addMovie) {
+     var newMovie = {'title': addMovie};
+     console.log(newMovie);
+     var newMovieList = this.state.movies.slice();
+     newMovieList.push(newMovie);
+     console.log(newMovieList);
+     this.setState({movies: newMovieList});
+   }
 
   //create a filter method that filters the state of movies based on the state of searchTxt
   filterBySearch() {
@@ -39,35 +47,14 @@ class App extends React.Component {
       })
     }
     return movies;
-
-    // const { searchTxt, movies } = this.state;
-    // if (searchTxt) {
-    //   return movies.filter((movie) => {
-    //     if (movie.title.toLowerCase().includes(searchTxt.toLowerCase())) {
-    //       return true;
-    //     }
-    //     return false;
-    //   })
-    // }
-    // return movies;
-
-    // var filterResult = [];
-    // if (searchTxt.length !== 0) {
-    //   filterResult = this.state.movies.filter((movie) => {
-    //     if (movie.title.toLowerCase().includes(this.state.searchTxt.toLowerCase())) {
-    //       filterResult.push(movie);
-    //     }
-    //   })
-    // }
-
-    // this.setState({movies: filterResult})
   }
 
 
   render() {
     return (
       <div>
-        <Searchbar searchTxt={this.state.searchTxt} handleSearchInput={this.handleSearchInput} handleSubmit={this.handleSubmit} />
+        <AddMovie liftAddMovieState={this.liftAddMovieState}/>
+        <Searchbar liftSearchTxtState={this.liftSearchTxtState} />
         <MovieList movies={this.filterBySearch()} />
       </div>
     )
