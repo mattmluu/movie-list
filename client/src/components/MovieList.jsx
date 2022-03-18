@@ -1,4 +1,5 @@
 import React from 'react';
+import Movie from './Movie.jsx';
 
 //create a component that renders the list of movies
 //app.js will pass movies prop into the movieList component instance
@@ -7,7 +8,7 @@ import React from 'react';
 
 var MovieList = ({movies}) => (
   <div>
-    {movies[0].title}
+    {movies.map((movie) => <Movie movie={movie}/> )}
   </div>
 )
 
