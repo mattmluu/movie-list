@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon server/index.js",
-    "react-dev": "webpack --config ./webpack.config.js  -w"
+    "react-dev": "webpack --config ./webpack.config.js  -w",
+    "schema": "mysql -u root < server/schema.sql"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
@@ -20,8 +21,9 @@
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "express": "^4.17.1",
+    "mysql2": "^2.3.3",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "underscore": "^1.12.1"
